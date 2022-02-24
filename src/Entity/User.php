@@ -27,6 +27,11 @@ class User
      */
     private $age;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Bill::class, mappedBy="user_id", cascade={"persist", "remove"})
+     */
+    private $bill;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,23 @@ class User
     public function setAge(?int $age): self
     {
         $this->age = $age;
+
+        return $this;
+    }
+
+    public function getBill(): ?Bill
+    {
+        return $this->bill;
+    }
+
+    public function setBill(Bill $bill): self
+    {
+        // set the owning side of the relation if necessary
+        if ($bill->getUserId() !== $this) {
+            $bill->setUserId($this);
+        }
+
+        $this->bill = $bill;
 
         return $this;
     }
