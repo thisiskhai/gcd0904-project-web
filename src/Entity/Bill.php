@@ -30,6 +30,16 @@ class Bill
      */
     private $user_id;
 
+    /**
+     * @ORM\OneToMany(targetEntity=OrderedProduct::class, mappedBy="bill_id")
+     */
+    private $orderedProducts;
+
+    public function __construct()
+    {
+        $this->orderedProducts = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -50,6 +60,36 @@ class Bill
     public function setUserId(User $user_id): self
     {
         $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrderedProduct>
+     */
+    public function getOrderedProducts(): Collection
+    {
+        return $this->orderedProducts;
+    }
+
+    public function addOrderedProduct(OrderedProduct $orderedProduct): self
+    {
+        if (!$this->orderedProducts->contains($orderedProduct)) {
+            $this->orderedProducts[] = $orderedProduct;
+            $orderedProduct->setBillId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderedProduct(OrderedProduct $orderedProduct): self
+    {
+        if ($this->orderedProducts->removeElement($orderedProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($orderedProduct->getBillId() === $this) {
+                $orderedProduct->setBillId(null);
+            }
+        }
 
         return $this;
     }

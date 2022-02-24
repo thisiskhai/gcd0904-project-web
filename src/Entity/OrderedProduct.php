@@ -27,6 +27,18 @@ class OrderedProduct
      */
     private $price;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Bill::class, inversedBy="orderedProducts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $bill_id;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Products::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $product_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +64,30 @@ class OrderedProduct
     public function setPrice(float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getBillId(): ?Bill
+    {
+        return $this->bill_id;
+    }
+
+    public function setBillId(?Bill $bill_id): self
+    {
+        $this->bill_id = $bill_id;
+
+        return $this;
+    }
+
+    public function getProductId(): ?Products
+    {
+        return $this->product_id;
+    }
+
+    public function setProductId(Products $product_id): self
+    {
+        $this->product_id = $product_id;
 
         return $this;
     }
