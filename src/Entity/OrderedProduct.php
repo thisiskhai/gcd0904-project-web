@@ -10,12 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class OrderedProduct
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-      private $id;
+//    /**
+//     * @ORM\Id
+//     * @ORM\GeneratedValue
+//     * @ORM\Column(type="integer")
+//     */
+//      private $id;
 
     /**
      * @ORM\Column(type="integer")
@@ -28,21 +28,22 @@ class OrderedProduct
     private $price;
 
     /**
+     * @ORM\Id
      * @ORM\ManyToOne(targetEntity=Bill::class, inversedBy="orderedProducts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $bill_id;
 
     /**
-     * @ORM\OneToOne(targetEntity=Products::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Products::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $product_id;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+//    public function getId(): ?int
+//    {
+//        return $this->id;
+//    }
 
     public function getQuantity(): ?int
     {
