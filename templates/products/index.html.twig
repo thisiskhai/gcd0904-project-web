@@ -5,18 +5,14 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>ID</th>
                 <th>Name</th>
-                <th>Description</th>
                 <th>Price</th>
             </tr>
             </thead>
             <tbody>
             {% for product in products %}
                 <tr>
-                    <th scope="row">{{ product.id }}</th>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.description }}</td>
+                    <th scope="row">{{ product.name }}</th>
                     <td>{{ product.price }}$</td>
                     <td>
                         {#                        <a href="{{ path('todo_details', {'id': todo.id}) }} " class='btn btn-success'>View</a>#}
