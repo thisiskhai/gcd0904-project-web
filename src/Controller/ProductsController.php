@@ -35,5 +35,15 @@ class ProductsController extends AbstractController
             'products' => $result
         ]);
     }
+    #[Route('/products/details/{id}', name: 'products_details')]
+    public function detailsAction($id)
+    {
+        $products = $this->getDoctrine()
+            ->getRepository('App:Products')
+            ->find($id);
+        return $this->render('products/details.html.twig', [
+            'products' => $products
+        ]);
+    }
 
 }
