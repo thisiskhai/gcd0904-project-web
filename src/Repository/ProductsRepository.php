@@ -47,4 +47,12 @@ class ProductsRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function getProductsAscending()
+    {
+        return $this
+            ->createQueryBuilder('p')
+            ->orderBy('p.id', 'asc')
+            ->getQuery()
+            ->getResult();
+    }
 }

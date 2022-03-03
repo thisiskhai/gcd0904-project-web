@@ -36,7 +36,7 @@ class Products
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $category_id;
+    public $category_id;
 
     public function getId(): ?int
     {

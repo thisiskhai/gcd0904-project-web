@@ -54,6 +54,7 @@ class Category
     /**
      * @return Collection<int, Products>
      */
+
     public function getProducts(): Collection
     {
         return $this->products;
