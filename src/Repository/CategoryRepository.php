@@ -47,4 +47,12 @@ class CategoryRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function getCategoryAscending()
+    {
+        return $this
+            ->createQueryBuilder('c')
+            ->orderBy('c.id', 'asc')
+            ->getQuery()
+            ->getResult();
+    }
 }
