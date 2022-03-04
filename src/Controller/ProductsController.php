@@ -2,10 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Products;
+use App\Form\ProductsType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\HttpFoundation\HttpFoundationRequestHandler;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function PHPUnit\Framework\stringContains;
 
 class ProductsController extends AbstractController
 {
@@ -59,6 +65,22 @@ class ProductsController extends AbstractController
         );
 
         return $this->redirectToRoute('products_ascending');
+    }
+    #[Route('/products/create', name: 'products_create', methods: ['GET', 'POST'])]
+    public function createAction(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $products = new Products();
+        $form = $this->createForm(ProductsType::class, $products);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager->persist($products);
+            $entityManager->flush();
+            return $this->redirectToRoute('products_ascending',[], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('products/create.html.twig',[
+            'products'=>$products,
+            'form'=>$form]);
     }
 
 }
