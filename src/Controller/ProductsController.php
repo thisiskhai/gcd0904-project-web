@@ -84,23 +84,7 @@ class ProductsController extends AbstractController
     }
 
     #[Route('/products/edit/{id}', name: 'products_edit')]
-    public function editAction(Request $request, Products $products, EntityManagerInterface $entityManager): Response
-    {
-
-        $form = $this->createForm(ProductsType::class, $products);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-            return $this->redirectToRoute('products_ascending',[],Response::HTTP_SEE_OTHER);
-        }
-        return $this->renderForm('products/edit.html.twig', [
-            'products'=>$products,
-            'form' => $form
-        ]);
-    }
-    #[Route('/products/edit/{id}', name: 'products_edit')]
-    public function editAction($id, Request $request)
+    public function editProductAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $products = $em->getRepository('App:Products')->find($id);
@@ -138,5 +122,4 @@ class ProductsController extends AbstractController
 
         return false;
     }
-
 }
