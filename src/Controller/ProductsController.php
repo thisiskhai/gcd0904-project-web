@@ -83,4 +83,60 @@ class ProductsController extends AbstractController
             'form'=>$form]);
     }
 
+    #[Route('/products/edit/{id}', name: 'products_edit')]
+    public function editAction(Request $request, Products $products, EntityManagerInterface $entityManager): Response
+    {
+
+        $form = $this->createForm(ProductsType::class, $products);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            return $this->redirectToRoute('products_ascending',[],Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('products/edit.html.twig', [
+            'products'=>$products,
+            'form' => $form
+        ]);
+    }
+    #[Route('/products/edit/{id}', name: 'products_edit')]
+    public function editAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository('App:Products')->find($id);
+
+        $form = $this->createForm(ProductsType::class, $products);
+
+        if ($this->saveChanges($form,$request,$products)) {
+            $this->addFlash(
+                'notice',
+                'Product Edited'
+            );
+            return $this->redirectToRoute('products_ascending');
+        }
+
+        return $this->render('products/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+    public function saveChanges($form, $request, $products)
+    {
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $products->setName($request->request->get('products')['name']);
+            $products->setPrice($request->request->get('products')['price']);
+            $products->setDescription($request->request->get('products')['description']);
+
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($products);
+            $em->flush();
+
+            return true;
+        }
+
+        return false;
+    }
+
 }
