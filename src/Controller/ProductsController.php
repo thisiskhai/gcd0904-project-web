@@ -45,5 +45,20 @@ class ProductsController extends AbstractController
             'products' => $products
         ]);
     }
+    #[Route('/products/delete/{id}', name: 'products_delete')]
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository('App:Products')->find($id);
+        $em->remove($products);
+        $em->flush();
+
+        $this->addFlash(
+            'error',
+            'Product deleted'
+        );
+
+        return $this->redirectToRoute('products_ascending');
+    }
 
 }
