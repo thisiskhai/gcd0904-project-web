@@ -14,7 +14,6 @@ class Category
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     public $id;
@@ -27,7 +26,7 @@ class Category
     /**
      * @ORM\OneToMany(targetEntity=Products::class, mappedBy="category_id")
      */
-    private $products;
+    public $products;
 
     public function __construct()
     {
@@ -37,6 +36,12 @@ class Category
     public function getId(): ?int
     {
         return $this->id;
+    }
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getName(): ?string
