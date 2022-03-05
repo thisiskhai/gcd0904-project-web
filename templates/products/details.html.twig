@@ -1,13 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('products_ascending') }}" class="btn btn-default">Back to Todo List</a>
-    <hr/>
-    <h2 class="page-header">{{ products.name }}</h2>
-    <ul class="list-group">
-        <li class="list-group-item">ID: {{ products.id }}</li>
-        <li class="list-group-item">Description: {{ products.description }}</li>
-        <li class="list-group-item">Price: {{ products.price }}$</li>
-        <li class="list-group-item">Category ID: {{ products.category_id }}</li>
-    </ul>
+    <a href="{{ path('products_ascending') }}" class=" btn btn-primary">Back to Products List</a>
+    <br>
+
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">NAME</th>
+            <th scope="col">{{ products.name }}</th>
+        </tr>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">{{ products.id }}</th>
+        </tr>
+        <tr>
+            <th scope="col">DESCRIPTION</th>
+            <th scope="col">{{ products.description }}</th>
+        </tr>
+        <tr>
+            <th scope="col">PRICE</th>
+            <th scope="col">{{ products.price }}$</th>
+        </tr>
+        <tr>
+            <th scope="col">CATEGORY ID</th>
+            <th scope="col">{{ products.category_id }}</th>
+        </tr>
+    </table>
 {% endblock %}

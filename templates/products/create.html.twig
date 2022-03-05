@@ -1,32 +1,33 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+
     {{ form_start(form) }}
-    <div class="form-group">
-        <label for="id">ID:</label>
+    <div class="form-group form-control-lg">
+        <label for="id">PRODUCT ID:</label>
         {{ form_widget(form.id,{
             'attr':{
                 'class':'form-control',
-                'placeholder': 'Task name'
+                'placeholder': 'Product Id'
             }
         }) }}
         <div class="invalid-feedback">
             {{ form_errors(form.name) }}
         </div>
     </div>
-    <div class="form-group">
-        <label for="name">Name:</label>
+    <div class="form-group form-control-lg">
+        <label for="name">NAME:</label>
         {{ form_widget(form.name,{
             'attr':{
                 'class':'form-control',
-                'placeholder': 'Task name'
+                'placeholder': 'Name'
             }
         }) }}
         <div class="invalid-feedback">
             {{ form_errors(form.name) }}
         </div>
     </div>
-    <div class="form-group">
-        <label for="description">Description:</label>
+    <div class="form-group form-control-lg">
+        <label for="description">DESCRIPTION:</label>
         {{ form_widget(form.description,{
             'attr':{
                 'class':'form-control',
@@ -34,23 +35,27 @@
             }
         }) }}
     </div>
-    <div class="form-group">
-        <label for="priority">Price:</label>
+    <div class="form-group form-control-lg">
+        <label for="priority">PRICE:</label>
         {{ form_widget(form.price,{
             'attr':{
-                'class':'form-control'
+                'class':'form-control',
+                'placeholder': '$'
             }
         }) }}
     </div>
-    <div class="form-group">
-        <label for="category">Category ID:</label>
+    <div class="form-group form-control-lg">
+        <label for="category">CATEGORY ID:</label>
         {{ form_widget(form.category_id,{
             'attr':{
-                'class':'form-control',
-                'placeholder': 'Category name'
+                'class':'form-control form-control-lg',
+                'placeholder': 'Category Id'
             }
         }) }}
     </div>
-    <input type="submit" name="create_products" value="Create" class="btn btn-primary"/>
+    <div class="d-flex justify-content-center">
+        <input type="submit" name="create_products" value="Create" class="btn btn-primary"/>
+        <a href="{{ path('products_ascending') }}" class="btn btn-danger">Cancel</a>
+    </div>
     {{ form_end(form) }}
 {% endblock %}
