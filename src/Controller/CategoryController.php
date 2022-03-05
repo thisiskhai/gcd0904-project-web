@@ -35,4 +35,14 @@ class CategoryController extends AbstractController
             'category' => $result
         ]);
     }
+    #[Route('/category/details/{id}', name: 'category_details')]
+    public function detailsCategoryAction($id)
+    {
+        $category = $this->getDoctrine()
+            ->getRepository('App:Category')
+            ->find($id);
+        return $this->render('category/details.html.twig', [
+            'category' => $category
+        ]);
+    }
 }

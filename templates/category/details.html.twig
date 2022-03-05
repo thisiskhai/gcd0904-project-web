@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('category_ascending') }}" class="btn btn-default">Back to Category List</a>
+    <hr/>
+    <h2 class="page-header">{{ category.name }}</h2>
+    <ul class="list-group">
+        <li class="list-group-item">ID: {{ category.id }}</li>
+    </ul>
+{% endblock %}
