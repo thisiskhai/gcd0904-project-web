@@ -14,7 +14,22 @@ class UserController extends AbstractController
 {
     #[Route('/user', name: 'user')]
     public function index(): Response
-    {
+    {   
+        // Call Entity Manager
+            $em = $this
+            ->getDoctrine()
+            ->getManager();
+
+        // Call CustomerRepo
+        $userRepo = $em->getRepository(User::class);
+
+        // Call function
+        $result = $userRepo->getUserAscending();
+
+        // Return result to View
+        return $this->render('user/index.html.twig', [
+            'user' => $result
+        ]);
         return $this->render('user/index.html.twig', [
             'controller_name' => 'UserController',
         ]);
@@ -53,5 +68,15 @@ class UserController extends AbstractController
         return $this->renderForm('user/create.html.twig',[
             'user'=>$user,
             'form'=>$form]);
+    }
+    #[Route('/user/details/{id}', name: 'user_details')]
+    public function detailsAction($id)
+    {
+        $user = $this->getDoctrine()
+            ->getRepository('App:User')
+            ->find($id);
+        return $this->render('user/details.html.twig', [
+            'user' => $user
+        ]);
     }
 }

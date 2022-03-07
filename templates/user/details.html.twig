@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('user_ascending') }}" class=" btn btn-primary">Back to Users List</a>
+    <br>
+
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">{{ user.name }}</th>
+        </tr>
+        <tr>
+            <th scope="col">NAME</th>
+            <th scope="col">{{ user.id }}</th>
+        </tr>
+        <tr>
+            <th scope="col">AGE</th>
+            <th scope="col">{{ user.age }}</th>
+        </tr>
+    </table>
+{% endblock %}
