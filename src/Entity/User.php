@@ -15,23 +15,23 @@ class User
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    public $name;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $age;
+    public $age;
 
     /**
      * @ORM\OneToOne(targetEntity=Bill::class, mappedBy="user_id", cascade={"persist", "remove"})
      */
-    private $bill;
-
+    public $bill;
+ 
     public function getId(): ?int
     {
         return $this->id;
