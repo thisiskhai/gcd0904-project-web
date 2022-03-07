@@ -16,5 +16,15 @@
                 <th scope="col">FUNCTION</th>
             </tr>
             </thead>
+            <tbody>
+            {% for use in user %}
+                <tr>
+                    <th scope="row">{{ use.id }}</th>
+                    <td>{{ use.name }}</td>
+                    <td>{{ use.age }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
         </table>
 {% endblock %}
