@@ -47,4 +47,12 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function getUserAscending()
+    {
+        return $this
+            ->createQueryBuilder('c')
+            ->orderBy('c.id', 'asc')
+            ->getQuery()
+            ->getResult();
+    }
 }
