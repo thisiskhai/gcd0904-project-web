@@ -30,7 +30,7 @@ class User
     /**
      * @ORM\OneToOne(targetEntity=Bill::class, mappedBy="user_id", cascade={"persist", "remove"})
      */
-    public $bill;
+        public $bill;
  
     public function getId(): ?int
     {

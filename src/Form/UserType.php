@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Form;
 
 use App\Entity\User;
@@ -17,7 +16,6 @@ class UserType extends AbstractType
             ->add('age')
         ;
     }
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

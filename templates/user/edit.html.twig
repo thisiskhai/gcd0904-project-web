@@ -1,17 +1,15 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
     {{ form_start(form) }}
     <div class="form-group">
-        <label for="id">ID:</label>
+        <label for="id">Id:</label>
         {{ form_widget(form.id,{
             'attr':{
                 'class':'form-control',
                 'placeholder': 'Id'
             }
         }) }}
-        <div class="invalid-feedback">
-            {{ form_errors(form.id) }}
-        </div>
     </div>
     <div class="form-group">
         <label for="name">Name:</label>
@@ -21,25 +19,16 @@
                 'placeholder': 'Name'
             }
         }) }}
-        <div class="invalid-feedback">
-            {{ form_errors(form.name) }}
-        </div>
     </div>
-     <div class="form-group">
-        <label for="id">Age:</label>
+    <div class="form-group">
+        <label for="name">Age:</label>
         {{ form_widget(form.age,{
             'attr':{
                 'class':'form-control',
                 'placeholder': 'Age'
             }
         }) }}
-        <div class="invalid-feedback">
-            {{ form_errors(form.age) }}
-        </div>
     </div>
-    <div>
-    <input type="submit" name="create_user" value="Create" class="btn btn-primary"/>
-    <a href="{{ path('products_ascending') }}" class="btn btn-danger">Cancel</a>
-    </div>
+    <input type="submit" name="edit_user" value="Edit" class="btn btn-primary"/>
     {{ form_end(form) }}
 {% endblock %}

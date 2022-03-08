@@ -20,7 +20,7 @@ class UserController extends AbstractController
             ->getDoctrine()
             ->getManager();
 
-        // Call CustomerRepo
+        // Call UserRepo
         $userRepo = $em->getRepository(User::class);
 
         // Call function
@@ -78,5 +78,67 @@ class UserController extends AbstractController
         return $this->render('user/details.html.twig', [
             'user' => $user
         ]);
+    }
+    #[Route('/user/edit/{id}', name: 'user_edit')]
+    public function editAction($id, Request $request)
+    {
+        $em = $this
+            ->getDoctrine()
+            ->getManager();
+        $user = $em
+              ->getRepository('App:User')
+              ->find($id);
+
+        $form = $this->createForm(UserType::class, $user);
+
+        if ($this->saveEditedData($form, $request, $user)) {
+            $this->addFlash(
+                'notice',
+                'User Edited'
+            );
+            return $this->redirectToRoute('user_ascending');
+        }
+
+        return $this->render('user/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+    #[Route('/user/delete/{id}', name: 'user_delete')]
+    public function deleteAction($id)
+    {
+        $em = $this
+            ->getDoctrine()
+            ->getManager();
+        $user = $em
+              ->getRepository('App:User')
+              ->find($id);
+        $em->remove($user);
+        $em->flush();
+
+        $this->addFlash(
+            'error',
+            'User deleted'
+        );
+
+        return $this->redirectToRoute('user_ascending');
+    }
+    public function saveEditedData($form, $request, $user)
+    {
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setName($request->request->get('user')['name']);
+            $user->setAge($request->request->get('user')['age']);
+
+            $em = $this
+                ->getDoctrine()
+                ->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return true;
+        }
+
+        return false;
     }
 }

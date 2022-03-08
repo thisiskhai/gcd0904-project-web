@@ -24,8 +24,8 @@
                     <td>{{ use.age }}</td>
                     <td>
                         <a href="{{ path('user_details', {'id': use.id}) }} " class='btn btn-success'>View</a>
-                        <a href="{{ path('user_details', {'id': use.id}) }}" class='btn btn-primary'>Edit</a>
-                        <a href="{{ path('user_details', {'id': use.id}) }}" class='btn btn-danger'>Delete</a>
+                        <a href="{{ path('user_edit', {'id': use.id}) }}" class='btn btn-primary'>Edit</a>
+                        <a href="{{ path('user_delete', {'id': use.id}) }}" class='btn btn-danger'>Delete</a>
                     </td>
                 </tr>
             {% endfor %}
