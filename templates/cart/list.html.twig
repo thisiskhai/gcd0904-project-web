@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+        <div class="bs-example" data-example-id="striped-table">
+        <div class="d-flex justify-content-end">
+            <a href="{{ path('cart_create') }}" class=" btn btn-primary">Add Product to Cart</a>
+        </div>
+        <br>
+
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">PRODUCT ID</th>
+                <th scope="col">USER ID</th>
+                <th scope="col">QUANTITY</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for car in cart %}
+                <tr>
+                    <th scope="row">{{ car.id }}</th>
+                    <td>{{ car.product_id }}</td>
+                    <td>{{ car.user_id}}</td>
+                    <td>{{ car.quantity}}</td>
+                    <td>
+                        <a href="{{ path('cart_detail', {'id': car.id}) }} " class='btn btn-success'> View </a>
+                        <a href="{{ path('cart_edit', {'id': car.id}) }}" class='btn btn-primary'>Edit</a>
+                        <a href="{{ path('cart_delete', {'id': car.id}) }}" class='btn btn-danger'>Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

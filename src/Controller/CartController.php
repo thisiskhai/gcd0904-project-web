@@ -25,4 +25,24 @@ class CartController extends AbstractController
         ]);
     }
 
+    #[Route('/cart/all/ascending', name: 'cart_ascending')]
+    public function listAscendingCart(): Response
+    {   
+        // Call Entity Manager
+            $em = $this
+            ->getDoctrine()
+            ->getManager();
+
+        // Call UserRepo
+        $cartRepo = $em->getRepository(Cart::class);
+
+        // Call function
+        $result = $cartRepo->getCartAscending();
+
+        // Return result to View
+        return $this->render('cart/list.html.twig', [
+            'cart' => $result
+        ]);
+    }
+
 }
