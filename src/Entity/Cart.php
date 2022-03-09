@@ -22,13 +22,13 @@ class Cart
      */
     public $id;
     /**
-     * @ORM\ManyToOne(targetEntity=Products::class, inversedBy="productId", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Products::class, inversedBy="productId", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     public $product_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userId", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userId", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     public $user_id;
