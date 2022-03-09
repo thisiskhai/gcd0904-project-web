@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
+use App\Entiy\Cart;
 use App\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,9 +30,6 @@ class UserController extends AbstractController
         // Return result to View
         return $this->render('user/index.html.twig', [
             'user' => $result
-        ]);
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
         ]);
     }
     #[Route('/user/all/ascending', name: 'user_ascending')]
