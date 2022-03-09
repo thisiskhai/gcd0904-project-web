@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('cart_ascending') }}" class=" btn btn-primary">Back to Cart List</a>
+    <br>
+
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">{{ cart.id }}</th>
+        </tr>
+        <tr>
+            <th scope="col">Product ID</th>
+            <th scope="col">{{ cart.product_id }}</th>
+        </tr>
+        <tr>
+            <th scope="col">User Id</th>
+            <th scope="col">{{ cart.user_id }}</th>
+        </tr>
+        <tr>
+            <th scope="col">Quantity</th>
+            <th scope="col">{{ cart.quantity }}</th>
+        </tr>
+        <tr>
+            <th scope="col">Price</th>
+            <th scope="col">{{cart.total}}</th>
+        </tr>
+    </table>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ form_start(form) }}
+    <div class="form-group">
+        <label for="id">ID:</label>
+        {{ form_widget(form.id,{
+            'attr':{
+                'class':'form-control',
+                'placeholder': 'Id'
+            }
+        }) }}
+        <div class="invalid-feedback">
+            {{ form_errors(form.id) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="name">Product Id:</label>
+        {{ form_widget(form.product_id,{
+            'attr':{
+                'class':'form-control',
+                'placeholder': 'Product Id'
+            }
+        }) }}
+        <div class="invalid-feedback">
+            {{ form_errors(form.product_id) }}
+        </div>
+    </div>
+     <div class="form-group">
+        <label for="id">User Id:</label>
+        {{ form_widget(form.user_id,{
+            'attr':{
+                'class':'form-control',
+                'placeholder': 'User Id'
+            }
+        }) }}
+        <div class="invalid-feedback">
+            {{ form_errors(form.user_id) }}
+        </div>
+    </div>
+         <div class="form-group">
+        <label for="id">Quantity:</label>
+        {{ form_widget(form.quantity,{
+            'attr':{
+                'class':'form-control',
+                'placeholder': 'Quantity'
+            }
+        }) }}
+        <div class="invalid-feedback">
+            {{ form_errors(form.quantity) }}
+        </div>
+    <div>
+    
+    <input type="submit" name="create_cart" value="Create" class="btn btn-primary"/>
+    <a href="{{ path('cart_ascending') }}" class="btn btn-danger">Cancel</a>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
