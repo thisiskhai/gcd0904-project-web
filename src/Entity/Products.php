@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\ProductsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\Integer;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass=ProductsRepository::class)
@@ -34,10 +36,20 @@ class Products
     public $price;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     public $category_id;
+    
+    /**
+     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="product_id", cascade={"persist", "remove"})
+     */
+    public $productId;
+
+    public function __construct()
+    {
+        $this->productId = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -96,6 +108,41 @@ class Products
         $this->category_id = $category_id;
 
         return $this;
+    }
+    /**
+     * @return Collection<int, Cartr>
+     */
+
+    public function getCart(): Collection
+    {
+        return $this->productId;
+    }
+
+    public function addCart(Cart $productid): self
+    {
+        if (!$this->productId->contains($productid)) {
+            $this->productId[] = $productid;
+            $productid->setProductId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCart(Cart $productid): self
+    {
+        if ($this->productId->removeElement($productid)) {
+            // set the owning side to null (unless already changed)
+            if ($productid->getProductId() === $this) {
+                $productid->setProductId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->id;
     }
 
 }

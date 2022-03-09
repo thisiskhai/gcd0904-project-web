@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -27,10 +29,20 @@ class User
      */
     public $age;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Bill::class, mappedBy="user_id", cascade={"persist", "remove"})
+     /**
+     * @ORM\Column(type="string", nullable=true)
      */
-        public $bill;
+    public $phoneNumber;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="user_id", cascade={"persist", "remove"})
+     */
+    public $userId;
+
+    public function __construct()
+    {
+        $this->userId = new ArrayCollection();
+    }
  
     public function getId(): ?int
     {
@@ -61,20 +73,51 @@ class User
         return $this;
     }
 
-    public function getBill(): ?Bill
+    public function getPhoneNumber(): ?int
     {
-        return $this->bill;
+        return $this->phoneNumber;
     }
 
-    public function setBill(Bill $bill): self
+    public function setPhoneNumber(?int $phoneNumber): self
     {
-        // set the owning side of the relation if necessary
-        if ($bill->getUserId() !== $this) {
-            $bill->setUserId($this);
-        }
-
-        $this->bill = $bill;
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
+    }
+
+     /**
+     * @return Collection<int, Cart>
+     */
+
+    public function getUser(): Collection
+    {
+        return $this->userId;
+    }
+
+    public function addUser(Cart $userid): self
+    {
+        if (!$this->userId->contains($userid)) {
+            $this->userId[] = $userid;
+            $userid->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(Cart $userid): self
+    {
+        if ($this->userId->removeElement($userid)) {
+            // set the owning side to null (unless already changed)
+            if ($userid->getUserId() === $this) {
+                $userid->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->id;
     }
 }
